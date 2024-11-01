@@ -142,5 +142,81 @@ DÍA 6 - PANDAS - PARTE I
 
     FILTRADO DE SERIES EN PANDAS
     ****************************
+        FILTRADO POR NUMEROS
+            serie = pd.Series([5, 10, 15, 20, 25])
+
+            filtro = serie > 15 # FILTRO PARA IDENTIFICAR LOS VALORES MAYORES A 15
+            serie_filtrada = serie[filtro]
+            serie_filtrada
+                3    20
+                4    25
+                dtype: int64
+            
+            filtro
+                0    False
+                1    False
+                2    False
+                3     True
+                4     True
+                dtype: bool
+
+            Como puedes ver, lo que hicimos fue crear una nueva **Serie** que contiene **valores booleanos** (*True* para elementos que cumplen la condición, y *False* para los que no).
+            Luego, usamos la serie **filtro** para "indexar" solo los elementos de **serie** que son *True*, y que por lo tanto son mayores que 15. 
+            De alguna manera este es el mismo proceso de indexación que aplicábamos antes, porque lo que pones en las llaves cuadradas es el valor que quieres obtener,
+            solo que al hacerlo de esta manera **obtenemos más de un valor que cumple con el criterio de indexación**, y a ese proceso le llamamos **filtrado**.
+
+        FILTRADO POR TEXTO
+            serie2 = pd.Series(["banana", "pera", "melon", "manzana"])
+            serie2
+                0     banana
+                1       pera
+                2      melon
+                3    manzana
+                dtype: object
+
+            type(serie2)
+                pandas.core.series.Series
+            
+            type(serie2[0])
+                str
+
+            filtro2 = serie2.str.contains("m")
+            filtro2
+                0    False
+                1    False
+                2     True
+                3     True
+                dtype: bool    
+
+            serie2[filtro2]
+                2      melon
+                3    manzana
+                dtype: object
+
+    AGREGACION DE SERIES EN PANDAS
+    ******************************
+        Básicamente una agregación es una **operación que combina varios valores de datos en un solo valor representativo**, como un promedio o una suma total.
+        
+        numeros = pd.Series([10, 20, 30, 40, 50])
+        
+        PROMEDIO MEAN()
+            promedio = numeros.mean()
+            print(f"El promedio es {promedio}")
+                El promedio es 30.0
+        
+        SUMA SUM()
+            total = numeros.sum()
+            total
+                np.int64(150)
+        
+        MAXIMO MAX()
+            maximo = numeros.max()
+            maximo
+                np.int64(50)
+        
+        MINIMO MIN()
+            minimo = numeros.min()
+            minimo
+                np.int64(10)
 
 DÍA 7 - PANDAS - PARTE II
