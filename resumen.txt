@@ -57,8 +57,90 @@ DÍA 6 - PANDAS - PARTE I
             serie.head()
 
         CREAR UNA SERIE A PARTIR DE OBJETOS DE PYTHON COMO LISTAS
-            datos_lista = [10, 20, 30, 40, 50]
-            serie2 = pd.Series(datos_lista)    
+            datos = [10, 20, 30, 40, 50]
+            serie2 = pd.Series(datos)
 
+        PERSONALIZAR INDICES DE UNA SERIE
+            indices = ["a", "b", "c", "d", "e"]
+            serie2 = pd.Series(datos,indices) # debe coincidir la cantidad de indices con la cantidad de elementos de la serie
+            serie2["b"] # devuelve el valor 20
+            type(serie2) # devuelve pandas.core.series.Series
+            type(serie2["b"]) # devuelve numpy.int64
+        
+        CREANDO UNA SERIE DESDE UN DICCIONARIO
+            capitales = {"España": "Madrid", "Perú": "Lima", "Argentina": "Buenos Aires"}
+            serie3 = pd.Series(capitales)
+            Como puedes ver, en estos casos las claves(nombres de los paises) se transforman automáticamente en índices alfabéticos.
+            serie3["Perú"] # devuelve 'Lima'
+    
+    OPERACIONES BASICAS CON SERIES
+    ******************************
+        serie = pd.Series([10, 20, 30, 40, 50])
+        serie[0] = serie[0] + 10 # suma 10 al primer elemento de la serie
+        serie = serie + 10 # suma 10 a todos los elementos de la serie
+        serie = serie * 2 # multiplica por 2 a cada uno de los elementos de la serie
+
+    LIMPIEZA DE DATOS
+    *****************
+        data = {"Id_producto": [1001, 1002, 1003, 1003],
+           "Cantidad_vendida": [30, None, 25, 25],
+                     "Precio": [20.5, 15.0, None, 22.5]}
+        df = pd.DataFrame(data)
+        
+        PASO 1 EXPLORACION DE DATOS
+        df.head()
+        
+            Id_producto	Cantidad_vendida	Precio
+            0	1001	30.0	            20.5
+            1	1002	NaN	                15.0
+            2	1003	25.0	            NaN
+            3	1003	25.0	            22.5
+
+        df.info() 
+            <class 'pandas.core.frame.DataFrame'>
+            RangeIndex: 4 entries, 0 to 3
+            Data columns (total 3 columns):
+            #   Column            Non-Null Count  Dtype  
+            ---  ------            --------------  -----  
+            0   Id_producto       4 non-null      int64  
+            1   Cantidad_vendida  3 non-null      float64 # 1 valor nulo
+            2   Precio            3 non-null      float64 # 1 valor nulo
+            dtypes: float64(2), int64(1)
+            memory usage: 228.0 bytes
+
+
+        PASO 2 IDENTIFICAR VALORES FALTANTES (NULOS)
+        df.isnull() # devuelve el dataframe con valores booleanos
+            Id_producto	Cantidad_vendida	Precio
+            0	False	False	            False
+            1	False	True	            False
+            2	False	False	            True
+            3	False	False	            False
+
+        df.isnull().sum() # devuelve el total de cada columna
+            Id_producto         0
+            Cantidad_vendida    1
+            Precio              1
+            dtype: int64
+        
+        PASO 2 MANEJO DE VALORES FALTANTES ( analizar que conviene en cada situacion, eliminar o reemplazar valores)
+            Opción 1 - Eliminar registros que contienen valores nulos
+                df_eliminados = df.dropna()
+
+            Opción 2: Reemplazar los Valores Nulos con Otros Valores                
+                valores_nuevos = {"Cantidad_vendida": 0, "Precio":df["Precio"].mean()}
+                df_rellenados = df.fillna(valores_nuevos)
+        
+        PASO 3 CORRECCION DE TIPO DE DATOS
+            df_rellenados["Cantidad_vendida"] = df_rellenados["Cantidad_vendida"].astype(int)
+
+
+        PASO 4 ELIMINACION DE DUPLICADOS
+            df_unicos = df_rellenados.drop_duplicates() # sin parametros busca registros completos
+
+            df_unicos = df_rellenados.drop_duplicates(subset="Id_producto") # busca duplicados en la columna Id_producto
+
+    FILTRADO DE SERIES EN PANDAS
+    ****************************
 
 DÍA 7 - PANDAS - PARTE II
