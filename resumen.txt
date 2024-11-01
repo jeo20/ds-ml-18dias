@@ -1,3 +1,64 @@
 DÍA 6 - PANDAS - PARTE I
+    IMPORTAR PANDAS
+        import pandas as pd
+    
+    TIPOS DE DATOS
+    **************
+    Series (columnas): Las series son un array de una sola dimensión, con etiquetas para sus elementos.
+
+    DataFrames (tablas): Un DataFrame es una tabla bidimensional, con etiquetas en filas y columnas, y si tomamos cualquier columna de un DataFrame por separado,
+    vamos a tener entonces una serie que es el segundo elemento de pandas.
+
+        CREAR DATAFRAME
+            datos = {"nombre":["Pedro","Juan","Lorena"], "edad": [25,39,33]}
+            df=pd.DataFrame(datos)
+
+        CONSULTAR TIPO DE DATO DEL DATAFRAME
+            type(df)
+            pandas.core.frame.DataFrame
+        
+        ACCEDER A UNA SERIE
+            df["nombre"]
+            cuando tengas string en una serie, pandas lo define como object
+
+        CONSULTAR TIPO DE DATO DE UNA SERIE
+            type(df.nombre)
+    
+    DATAFRAMES
+    **********
+        IMPORTO DE UN ARCHIVO CSV  
+            import pandas as pd
+            df = pd.read_csv("RUTA\\archivo.csv")
+        
+        METODOS Y ATRIBUTOS
+            METODOS ()
+            *********
+            df.head() # muestra los primeros 5 registros
+            df.tail() # muestra los últimos 5 registros
+            df.info() # muestra información sobre el dataframe
+            df.describe() # muestra estadísticas descriptivas del dataframe
+
+            ATRIBUTOS NO TIENE ()
+            *********************
+            df.columns # muestra las columnas del dataframe
+            df.index # muestra los índices del dataframe
+            df.shape # muestra el número de filas y columnas del dataframe
+            df.size # muestra el número total de elementos del dataframe
+            df.ndim # muestra el número de dimensiones del dataframe
+
+    SERIES
+    ******
+        IMPORTO DE UN ARCHIVO CSV  
+            import pandas as pd
+            df = pd.read_csv("RUTA\\archivo.csv")
+
+        ELEGIMOS UNA SERIE DEL DATAFRAME
+            serie = df["region"]
+            serie.head()
+
+        CREAR UNA SERIE A PARTIR DE OBJETOS DE PYTHON COMO LISTAS
+            datos_lista = [10, 20, 30, 40, 50]
+            serie2 = pd.Series(datos_lista)    
+
 
 DÍA 7 - PANDAS - PARTE II
