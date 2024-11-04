@@ -262,7 +262,7 @@ DÍA 7 - PANDAS - PARTE II
             df_agrupado.sort_values(ascending=False).head(10)
 
     FUSIONAR DATAFRAMES EN PANDAS CON MERGE()
-    *****************************
+    *****************************************
     La función merge() permite combinar DataFrames basándose en valores comunes de una o más columnas.
 
         df1           
@@ -317,3 +317,83 @@ DÍA 7 - PANDAS - PARTE II
                 0	1	    Ana	     1	    25
                 1	2	    Luis	 2	    30
                 2	3	    Carlos	 4	    22
+
+    COMBINAR DATAFRAMES EN PANDAS CON JOIN()
+    ****************************************
+    Combinar consiste en unir dos dataframes pero a partir de su índice, o de una columna clave, y no de columnas compartidas.
+        df1 = pd.DataFrame({'Salario': [30000, 45000, 38000],
+                        'Antigüedad': [9, 13, 12]},
+                    index=[1, 2, 3])
+        df2 = pd.DataFrame({'Ciudad': ['Madrid', 'Barcelona', 'Valencia'],
+                        'Jerarquía': ['Baja', 'Alta', 'Media']},
+                    index=[1, 2, 4])
+        df1         
+            Salario	Antigüedad
+            1	30000	9
+            2	45000	13
+            3	38000	12
+        df2
+                Ciudad	    Jerarquía
+            1	Madrid	    Baja
+            2	Barcelona	Alta
+            4	Valencia	Media
+
+        df_unido = df1.join(df2)
+        df_unido
+            Salario	Antigüedad	Ciudad	    Jerarquía
+        1	30000	9	        Madrid	    Baja
+        2	45000	13	        Barcelona	Alta
+        3	38000	12	        NaN	        NaN
+
+        df_unido = df1.join(df2, how='inner') # inner solo devuelve las coincidencias
+        df_unido
+            Salario	Antigüedad	Ciudad	Jerarquía
+        1	30000	    9	    Madrid	    Baja
+        2	45000	    13	    Barcelona	Alta
+
+    CONCATENAR DATAFRAMES EN PANDAS CON CONCAT()
+    ********************************************
+    Concatenar consiste en unir dos o más dataframes a lo largo de un eje horizontal o vertical.
+        df1 = pd.DataFrame({'Nombre': ["Juan", "Gabriela", "Elena"], 'Edad': [23, 31, 21]})
+        df1       
+                Nombre	    Edad
+            0	Juan	    23
+            1	Gabriela	31
+            2	Elena	    21
+
+        df2 = pd.DataFrame({'Nombre': ["Carmela", "Max", "Laura"], 'Edad': [34, 25, 29]})
+        df2                        
+                Nombre	Edad
+            0	Carmela	34
+            1	Max	    25
+            2	Laura	29
+
+        df_cancatenado = pd.concat([df1, df2])
+        df_cancatenado            
+                Nombre	   Edad
+            0	Juan	    23
+            1	Gabriela	31
+            2	Elena	    21
+            0	Carmela	    34
+            1	Max	        25
+            2	Laura	    29
+
+        axis por defecto = 0 concatena por columnas, axis = 1 concatena por filas
+        df_cancatenado2 = pd.concat([df1, df2], axis=1)
+        df_cancatenado2            
+                 Nombre	    Edad	Nombre	Edad
+            0	Juan	    23	    Carmela	34
+            1	Gabriela    31	    Max	    25
+            2	Elena	    21	    Laura	29
+            
+
+        df_cancatenado = pd.concat([df1, df2], ignore_index=True)
+        df_cancatenado
+            
+                Nombre	    Edad
+            0	Juan	    23
+            1	Gabriela	31
+            2	Elena	    21
+            3	Carmela	    34
+            4	Max	        25
+            5	Laura	    29
