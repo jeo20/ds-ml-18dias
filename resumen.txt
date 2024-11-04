@@ -220,3 +220,100 @@ DÍA 6 - PANDAS - PARTE I
                 np.int64(10)
 
 DÍA 7 - PANDAS - PARTE II
+    TRABAJAR CON DATAFRAMES
+    ***********************
+        AGREGAR UNA COLUMNA A UN DATAFRAME
+            df["Salario"] = [30000,45000,38000,32000]
+        
+        MODIFICAR COLUMNAS
+            df["Salario"] = df["Salario"] + 2000
+        
+        GUARDO UNA SERIE EN UNA VARIABLE
+            nombres = df["Nombre"]
+        
+        FILTRO DE UN DATAFRAME
+            mayores_25 = df[df["Edad"] > 25]
+
+        COMPROBAR TIPO DE DATO
+            type(mayores_25)
+
+    ORDENAR Y AGRUPAR DATAFRAMES EN PANDAS
+    **************************************
+        ORDENAR POR UNA COLUMNA ESPECIFICA(ETIQUETA)
+            df_ordenado = df.sort_values(by='rating')
+            df_ordenado.head(10)
+
+        ORDENAR DESCENDENTE DE MAYOR A MENOR
+            df_ordenado = df.sort_values(by='rating', ascending=False)
+            df_ordenado.head(10)
+
+        ORDENAR POR MAS DE UNA COLUMNA (usamos [] para usar una lista)
+            df_ordenado = df.sort_values(by=['rating', 'recaudación(M)'], ascending=False)
+            df_ordenado.head(10)
+
+        AGRUPACION DE DATAFRAMES   
+            df_agrupado = df.groupby('género')['rating'].mean()
+            df_agrupado
+        
+        AGRUPACION POR AÑO, RECAUDACION
+            df_agrupado = df.groupby('año')['recaudación(M)'].sum()
+
+        VER LOS PRIMEROS 10 AÑOS
+            df_agrupado.sort_values(ascending=False).head(10)
+
+    FUSIONAR DATAFRAMES EN PANDAS CON MERGE()
+    *****************************
+    La función merge() permite combinar DataFrames basándose en valores comunes de una o más columnas.
+
+        df1           
+                ID	Nombre
+            0	1	Ana
+            1	2	Luis
+            2	3	Carlos
+
+        df2            
+                ID	Edad
+            0	1	25
+            1	2	30
+            2	4	22
+            
+            df_combinado = pd.merge(df1, df2, on='ID')
+            df_combinado
+                ID	Nombre	Edad
+            0	1	Ana	    25
+            1	2	Luis	30
+
+            df_combinado = pd.merge(df1, df2, on='ID', how='inner')
+            df_combinado
+                ID	Nombre	Edad
+            0	1	Ana	    25
+            1	2	Luis	30
+
+            df_combinado = pd.merge(df1, df2, on='ID', how='outer')
+            df_combinado
+            	ID	Nombre	Edad
+            0	1	Ana	    25.0
+            1	2	Luis	30.0
+            2	3	Carlos	NaN
+            3	4	NaN	    22.0
+
+            df_combinado = pd.merge(df1, df2, on='ID', how='left')
+            df_combinado
+            	    ID	Nombre	Edad
+                0	1	Ana	    25.0
+                1	2	Luis	30.0
+                2	3	Carlos	NaN
+
+            df_combinado = pd.merge(df1, df2, on='ID', how='right')
+            df_combinado
+            	    ID	Nombre	Edad
+                0	1	Ana	    25
+                1	2	Luis	30
+                2	4	NaN	    22
+
+            df_indexado = pd.merge(df1, df2, left_index=True, right_index=True)
+            df_indexado
+            	    ID_x	Nombre	ID_y	Edad
+                0	1	    Ana	     1	    25
+                1	2	    Luis	 2	    30
+                2	3	    Carlos	 4	    22
