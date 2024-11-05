@@ -505,3 +505,47 @@ DÍA 7 - PANDAS - PARTE II
                 8573   2019-12-17
                 8574   2019-12-18
                 Name: Fecha, Length: 8575, dtype: datetime64[ns]
+
+    ABRIR Y ESCRIBIR ARCHIVOS EN PANDAS
+    ***********************************
+        CREAR DATAFRAME DESDE UN ARCHIVO EXCEL
+            ruta_excel = 'D:\\Cursos\\ds-ml-18dias\\07-dia 7\\26.1 Compras_desde_ads.xlsx'
+            df1 = pd.read_excel(ruta_excel)
+            df1
+                
+        CREAR DATAFRAME DESDE UN DICCIONARIO
+            numeros = {
+            'romanos': ['I', 'II', 'III', 'IV'],
+            'arabigos': [1, 2, 3, 4],
+            'texto': ['uno', 'dos', 'tres', 'cuatro']
+             }
+
+            df = pd.DataFrame(numeros)
+            df
+
+        AGREGO UNA COLUMNA DE FECHA
+            df['Fechas'] = pd.Series(pd.date_range('20240101', periods=4))
+            df
+
+        GUARDO EL DATAFRAME EN UN ARCHIVO EXCEL
+            df.to_excel('D:\\Cursos\\ds-ml-18dias\\07-dia 7\\jeo2.xlsx', index=False)
+
+        GUARDO EL DATAFRAME EN UN ARCHIVO CSV
+            df.to_excel('D:\\Cursos\\ds-ml-18dias\\07-dia 7\\jeo2.csv', index=False)        
+
+    ACCEDER A ELEMENTOS DE UN DATAFRAME CON LOC e ILOC
+    **************************************************
+        df = pd.DataFrame({
+            'Col1': [100, 200, 300],
+            'Col2': [400, 500, 600],
+            'Col3': [700, 800, 900]
+        }, index=['fila1', 'fila2', 'fila3'])
+
+        df
+        
+                Col1	Col2	Col3
+        fila1	100	    400	    700
+        fila2	200	    500	    800
+        fila3	300	    600	    900
+
+        
