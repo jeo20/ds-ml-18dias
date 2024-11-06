@@ -548,4 +548,8 @@ DÍA 7 - PANDAS - PARTE II
         fila2	200	    500	    800
         fila3	300	    600	    900
 
+DÍA 8 - NUMPY
+*************
+    IMPORTAR PANDAS
+        import numpy as np
         
